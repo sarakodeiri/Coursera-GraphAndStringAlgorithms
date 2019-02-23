@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using TestCommon;
 
-namespace A12
+namespace A1
 {
     public class Q1MazeExit : Processor
     {
@@ -12,8 +13,26 @@ namespace A12
 
         public long Solve(long nodeCount, long[][] edges, long StartNode, long EndNode)
         {
-            // Your code here
+            //Given an undirected graph and two distinct vertices 𝑢 and 𝑣, 
+            //check if there is a path between 𝑢 and 𝑣.
+
+            Graph graph = new Graph(nodeCount, edges, false);
+            var adjacencyList = graph.adjacencyList;
+            var visited = graph.visited;
+
+            Explore(adjacencyList, StartNode - 1, visited);
+
+            if (visited[EndNode - 1])
+                return 1;
             return 0;
-        }    
+        }
+        
+        private void Explore(List<long>[] adj, long Start, bool[] visited)
+        {
+            visited[Start] = true;
+            foreach (var v in adj[Start])
+                if (!visited[v])
+                    Explore(adj, v, visited);
+        }
      }
 }

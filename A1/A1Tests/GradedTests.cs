@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using A12;
+using A1;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestCommon;
 
-namespace A12.Tests
+namespace A1.Tests
 {
     [TestClass()]
     public class GradedTests

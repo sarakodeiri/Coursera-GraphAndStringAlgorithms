@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TestCommon;
 
-namespace A12
+namespace A1
 {
     public class Q4OrderOfCourse: Processor
     {
@@ -12,10 +13,45 @@ namespace A12
         public override string Process(string inStr) =>
             TestTools.Process(inStr, (Func<long, long[][], long[]>)Solve);
 
+        bool[] visited;
+        List<long> result;
+
         public long[] Solve(long nodeCount, long[][] edges)
         {
-            // Your code here
-            return new long[] { };
+            //Compute a topological ordering of a given directed acyclic graph 
+            //(DAG) with 𝑛 vertices and 𝑚 edges.
+
+            Graph graph = new Graph(nodeCount, edges, true);
+            var adjacencyList = graph.adjacencyList;
+            visited = graph.visited;
+
+            result = new List<long>();
+            
+            TopologicalSort(adjacencyList);
+            
+            result.Reverse();
+            return result.ToArray();
+        }
+
+        private void TopologicalSort(List<long>[] adjacencyList)
+        {
+            for (int i = 0; i < adjacencyList.Length; i++)
+                if (!visited[i])
+                    DFS(adjacencyList, result, i);
+        }
+
+        private void DFS(List<long>[] adj, List<long> result, long i)
+        {
+            visited[i] = true;
+            for (int j = 0; j < adj[i].Count; j++)
+            {
+                long current = adj[i][j];
+
+                if (!visited[current])
+                    DFS(adj, result, current);
+            }
+
+            result.Add(i+1);
         }
 
         public override Action<string, string> Verifier { get; set; } = TopSortVerifier;
