@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,26 @@ namespace A2
             //Write your code here
             Graph graph = new Graph(NodeCount, edges, false);
             var adjacencyList = graph.adjacencyList;
-            return 0;
+            Queue queue = new Queue();
+            var visited = graph.visited;
+            long[] distance = new long[NodeCount];
+            for (int i = 0; i < NodeCount; i++)
+                distance[i] = int.MaxValue;
+
+            StartNode--;
+            EndNode--;
+
+            visited[StartNode] = true;
+            queue.Enqueue(StartNode);
+
+            while(queue.Count > 0)
+            {
+                var temp = queue.Dequeue();
+
+            }
+
+
+            return distance[EndNode];
         }
     }
 }
