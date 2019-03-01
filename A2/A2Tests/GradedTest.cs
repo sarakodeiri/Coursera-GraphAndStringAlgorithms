@@ -12,12 +12,12 @@ namespace A2.Tests
     [TestClass()]
     public class GradedTests
     {
-        [TestMethod()/*, Timeout(4000)*/]
+        [TestMethod(), Timeout(4000)]
         [DeploymentItem("TestData", "A2_TestData")]
         public void SolveTest()
         {
             Processor[] problems = new Processor[] {
-                //new Q1ShortestPath("TD1"),
+                new Q1ShortestPath("TD1"),
                 new Q2BipartiteGraph("TD2")
             };
 
