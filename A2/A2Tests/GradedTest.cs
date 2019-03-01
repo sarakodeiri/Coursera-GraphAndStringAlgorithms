@@ -17,8 +17,8 @@ namespace A2.Tests
         public void SolveTest()
         {
             Processor[] problems = new Processor[] {
-                new Q1ShortestPath("TD1"),
-                //new Q2BipartiteGraph("TD2")
+                //new Q1ShortestPath("TD1"),
+                new Q2BipartiteGraph("TD2")
             };
 
             foreach (var p in problems)

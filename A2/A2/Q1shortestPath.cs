@@ -18,7 +18,7 @@ namespace A2
 
         public long Solve(long NodeCount, long[][] edges, long StartNode,  long EndNode)
         {
-            //Write your code here
+            //compute the length of a shortest path between 𝑢 and 𝑣
             Graph graph = new Graph(NodeCount, edges, false);
             var adjacencyList = graph.adjacencyList;
             Queue<long> queue = new Queue<long>();
@@ -57,10 +57,6 @@ namespace A2
                     
             }
 
-           // if (distance[EndNode] == int.MaxValue)
-           //     return -1;
-
-           // return distance[EndNode];
             return distance[EndNode] == int.MaxValue ? -1 : distance[EndNode];
         }
     }

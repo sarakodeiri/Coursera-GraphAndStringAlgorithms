@@ -10,9 +10,7 @@ namespace A2
     {
         static void Main(string[] args)
         {
-            long[][] edges = new long[4][];
              
-
         }
     }
 }
