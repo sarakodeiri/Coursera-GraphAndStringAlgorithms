@@ -20,17 +20,40 @@ namespace A2
             //Given an undirected graph with 𝑛 vertices and 𝑚 edges, check whether it is bipartite.
             Graph graph = new Graph(NodeCount, edges, false);
             var adjacencyList = graph.adjacencyList;
-            Queue<long> queue = new Queue<long>();
             var visited = graph.visited;
             long[] distance = new long[NodeCount];
             for (int i = 0; i < NodeCount; i++)
                 distance[i] = int.MaxValue;
+
+            for (int i = 0; i < NodeCount; i++)
+                if (distance[i] == int.MaxValue)
+                    if (!FirstRes(adjacencyList, i, distance, visited, NodeCount))
+                        return 0;
+            return 1;
+
+            //return FirstRes(adjacencyList, 0, distance, visited, NodeCount) ? 1 : 0;
+
+            //for (int i = 0; i < V; i++)
+            //    if (colorArr[i] == -1)
+            //        if (isBipartiteUtil(G, i, colorArr) == false)
+            //            return false;
+
+            //return true;
+
+        }
+
+        private bool FirstRes (List<long>[] adjacencyList, int StartNode, 
+            long[] distance, bool[] visited, long NodeCount)
+        {
+            
+            Queue<long> queue = new Queue<long>();
+            
             long[] preDec = new long[NodeCount];
             for (int i = 0; i < NodeCount; i++)
                 preDec[i] = int.MaxValue;
 
             int dist = 0;
-            
+
             distance[0] = 0;
             visited[0] = true;
             queue.Enqueue(0);
@@ -53,15 +76,15 @@ namespace A2
 
             }
 
-            for (int i=0; i<NodeCount-1; i++)
-                for (int j=i+1; j<NodeCount; j++)
+            for (int i = 0; i < NodeCount - 1; i++)
+                for (int j = i + 1; j < NodeCount; j++)
                 {
                     if (distance[i] == distance[j])
                         if (adjacencyList[i].Contains(j))
-                            return 0;
+                            return false;
                 }
 
-            return 1;
+            return true;
         }
     }
 
