@@ -57,10 +57,11 @@ namespace A2
                     
             }
 
-            if (distance[EndNode] == int.MaxValue)
-                return -1;
+           // if (distance[EndNode] == int.MaxValue)
+           //     return -1;
 
-            return distance[EndNode];
+           // return distance[EndNode];
+            return distance[EndNode] == int.MaxValue ? -1 : distance[EndNode];
         }
     }
 }
