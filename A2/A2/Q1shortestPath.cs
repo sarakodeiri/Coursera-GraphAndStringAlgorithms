@@ -21,26 +21,44 @@ namespace A2
             //Write your code here
             Graph graph = new Graph(NodeCount, edges, false);
             var adjacencyList = graph.adjacencyList;
-            Queue queue = new Queue();
+            Queue<long> queue = new Queue<long>();
             var visited = graph.visited;
             long[] distance = new long[NodeCount];
             for (int i = 0; i < NodeCount; i++)
                 distance[i] = int.MaxValue;
+            
+            int dist = 0;
 
             StartNode--;
             EndNode--;
 
+            distance[StartNode] = 0;
             visited[StartNode] = true;
             queue.Enqueue(StartNode);
 
-            while(queue.Count > 0)
+            while (queue.Count() > 0)
             {
-                var temp = queue.Dequeue();
-
+                dist++;
+                long temp = queue.Dequeue();
+                for (long i=0; i<adjacencyList[temp].Count(); i++)
+                {
+                    var current = adjacencyList[temp][(int)i];
+                    if (!visited[current])
+                    {
+                        visited[current] = true;
+                        distance[current] = dist;
+                        queue.Enqueue(current);
+                    }
+                }
+                    
             }
 
+            if (distance[EndNode] == int.MaxValue)
+                return -1;
 
             return distance[EndNode];
         }
     }
 }
+
+
