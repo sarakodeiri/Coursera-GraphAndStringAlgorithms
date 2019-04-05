@@ -18,7 +18,7 @@ namespace A3.Tests
         {
             Processor[] problems = new Processor[] {
                new Q1MinCost("TD1"),
-               //new Q2DetectingAnomalies("TD2"),
+               new Q2DetectingAnomalies("TD2"),
                //new Q3ExchangingMoney("TD3"),
                //new Q4FriendSuggestion("TD4")
             };
