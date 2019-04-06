@@ -19,63 +19,57 @@ namespace A5
 
         public string[] Solve(long n, string[] patterns)
         {
-            // write your code here
-            List<Edge> edges = new List<Edge>();
-            //List<string> result = new List<string>();
+            var edges = TrieMaker(patterns);
 
+            string[] result = new string[edges.Count()];
+
+            for (int i=0; i<result.Length; i++)
+                result[i] = $"{edges[i].from.index}->{edges[i].to.index}:{edges[i].label}";
+            
+            return result;
+        }
+
+        public List<Edge> TrieMaker(string[] patterns)
+        {
+            List<Edge> edges = new List<Edge>();
 
             long indexInGraph = 0;
             foreach (string pattern in patterns)
             {
-                var currentNode = new Node(0);
-                for (int i=0; i < pattern.Length; i++)
+                Node currentNode = new Node(0);
+                for (int i = 0; i < pattern.Length; i++)
                 {
                     bool alreadyAnEdge = false;
-                    var currentSymbol = pattern[i];
+                    char currentSymbol = pattern[i];
 
-                    for (int j=0; j < edges.Count(); j++)
-                    {
+                    for (int j = 0; j < edges.Count(); j++)
                         if (edges[j].from.index == currentNode.index && edges[j].label == currentSymbol)
                         {
                             currentNode = edges[j].to;
                             alreadyAnEdge = true;
                             break;
                         }
-                    }
-                    
+
+
                     if (!alreadyAnEdge)
                     {
                         indexInGraph++;
-                        var newNode = new Node(indexInGraph); //HERE!
+                        var newNode = new Node(indexInGraph);
                         edges.Add(new Edge(currentNode, newNode, currentSymbol));
                         currentNode = newNode;
                     }
-                    
+
 
                 }
             }
-
-            //0->1:A
-            string[] result = new string[edges.Count()];
-
-            for (int i=0; i<result.Length; i++)
-            {
-                result[i] = $"{edges[i].from.index}->{edges[i].to.index}:{edges[i].label}";
-            }
-
-            return result;
+            return edges;
         }
 
 
-        private class Edge
+        public class Edge
         {
             public Node from, to;
             public char label;
-            //public Edge(Node from, char label)
-            //{
-            //    this.from = from;
-            //    this.label = label;
-            //}
 
             public Edge(Node from, Node to, char label)
             {
@@ -85,7 +79,7 @@ namespace A5
             }
         }
 
-        private class Node
+        public class Node
         {
             public long index;
             public Node (long index)
