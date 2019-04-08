@@ -44,16 +44,11 @@ namespace A5
                     char currentSymbol = pattern[i];
 
                     foreach (Edge outEdge in currentNode.afterEdges)
-                    {
                         if (outEdge.label == currentSymbol)
                         {
                             currentNode = outEdge.to;
                             alreadyAnEdge = true;
-                            //break;
                         }
-                       
-                    }
-
 
                     if (!alreadyAnEdge)
                     {
@@ -65,8 +60,6 @@ namespace A5
                         edges.Add(newEdge);
                         currentNode = newNode;
                     }
-
-
                 }
             }
             return edges;
