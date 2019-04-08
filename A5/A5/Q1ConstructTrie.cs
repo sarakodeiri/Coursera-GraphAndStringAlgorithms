@@ -32,30 +32,37 @@ namespace A5
         public List<Edge> TrieMaker(string[] patterns)
         {
             List<Edge> edges = new List<Edge>();
-
+            Node root = new Node(0);
             long indexInGraph = 0;
+
             foreach (string pattern in patterns)
             {
-                Node currentNode = new Node(0);
+                Node currentNode = root;
                 for (int i = 0; i < pattern.Length; i++)
                 {
                     bool alreadyAnEdge = false;
                     char currentSymbol = pattern[i];
 
-                    for (int j = 0; j < edges.Count(); j++)
-                        if (edges[j].from.index == currentNode.index && edges[j].label == currentSymbol)
+                    foreach (Edge outEdge in currentNode.afterEdges)
+                    {
+                        if (outEdge.label == currentSymbol)
                         {
-                            currentNode = edges[j].to;
+                            currentNode = outEdge.to;
                             alreadyAnEdge = true;
-                            break;
+                            //break;
                         }
+                       
+                    }
 
 
                     if (!alreadyAnEdge)
                     {
                         indexInGraph++;
                         var newNode = new Node(indexInGraph);
-                        edges.Add(new Edge(currentNode, newNode, currentSymbol));
+                        var newEdge = new Edge(currentNode, newNode, currentSymbol);
+                        currentNode.Children.Add(newNode);
+                        currentNode.afterEdges.Add(newEdge);
+                        edges.Add(newEdge);
                         currentNode = newNode;
                     }
 
@@ -82,6 +89,8 @@ namespace A5
         public class Node
         {
             public long index;
+            public List<Node> Children = new List<Node>();
+            public List<Edge> afterEdges = new List<Edge>();
             public Node (long index)
             {
                 this.index = index;
