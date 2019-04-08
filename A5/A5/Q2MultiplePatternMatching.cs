@@ -19,10 +19,42 @@ namespace A5
         public long[] Solve(string text, long n, string[] patterns)
         {
             // write your code here
+            List<long> result = new List<long>();
+
             Node root = new Node(0);
             TrieMaker(patterns, ref root);
 
-            return new long[n];
+            while (text.Count() != 0)
+            {
+                PrefixMatching(text, ref root);
+                text.Remove(0,1);
+            }
+
+
+
+            return result.ToArray();
+        }
+
+        private void PrefixMatching(string text, ref Node root)
+        {
+            char symbol = text[0];
+            int index = 0;
+            Node current = root;
+            while (true)
+            {
+                var test = current.afterEdges.Where(p => p.label == symbol);
+
+                if (current.patternEnd)
+                {
+                    //return the number?
+                }
+                else if (test.Count() != 0)
+                {
+                    index++;
+                    symbol = text[index];
+                    current = test[0]
+                }
+            }
         }
 
         public void TrieMaker(string[] patterns, ref Node root)
