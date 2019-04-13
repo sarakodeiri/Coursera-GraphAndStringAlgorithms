@@ -18,8 +18,20 @@ namespace A6
 
         public string Solve(string text)
         {
-            // write your code here
-            throw new NotImplementedException();
+            List<string> rotations = new List<string>();
+            string doubleText = text + text;
+            int n = text.Length;
+
+            for (int i = 0; i < n; i++)
+                rotations.Add(doubleText.Substring(i, n));
+
+            rotations.Sort();
+
+            string result = string.Empty;
+
+            foreach (string rotation in rotations)
+                result += rotation.Last();
+            return result;
         }
     }
 }

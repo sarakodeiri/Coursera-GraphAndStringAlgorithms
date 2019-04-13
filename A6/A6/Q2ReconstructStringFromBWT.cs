@@ -11,6 +11,7 @@ namespace A6
     {
         public Q2ReconstructStringFromBWT(string testDataName) : base(testDataName)
         {
+            //ExcludedTestCases(31, 40);
         }
 
         public override string Process(string inStr) =>
@@ -18,8 +19,20 @@ namespace A6
 
         public string Solve(string bwt)
         {
-            // write your code here
-            throw new NotImplementedException();
+
+            List<(char, int)> lastColumn = new List<(char, int)>();
+            List<(char, int)> firstColumn = new List<(char, int)>();
+
+
+            
+
+
+            firstColumn = lastColumn;
+            firstColumn.Sort();
+
+            return null;
+
         }
+        
     }
 }
