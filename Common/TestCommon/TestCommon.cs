@@ -11,8 +11,9 @@ namespace TestCommon
     {
         public static readonly char[] IgnoreChars = new char[] { '\n', '\r', ' ' };
         public static readonly char[] NewLineChars = new char[] { '\n', '\r' };
-		
-		public static string Process(string inStr, Func<string, long[]> solve)
+        private const string Space = " ";
+
+        public static string Process(string inStr, Func<string, long[]> solve)
         {
             var str = inStr.Trim(IgnoreChars);
             return string.Join(" ", solve(str));
@@ -36,14 +37,16 @@ namespace TestCommon
             return string.Join("\n", solve(inStr.Trim(IgnoreChars)));
         }
 
-        public static string Process(string inStr, Func<string, long, string[], long[]> solve)
+        public static string Process(string inStr, 
+            Func<string, long, string[], long[]> solve,
+            string outDelim = Space)
         {
             var toks = inStr.Split(NewLineChars, StringSplitOptions.RemoveEmptyEntries);
             var str1 = toks[0];
             long cnt = long.Parse(toks[1]);
             var strList = toks.Skip(2).ToArray();
 
-            return string.Join(" ", solve(str1, cnt, strList));
+            return string.Join(outDelim, solve(str1, cnt, strList));
         }
 
         public static void RunLocalTest(
@@ -305,10 +308,14 @@ namespace TestCommon
                  ).ToArray();
         }
 
-        public static string Process(string inStr, Func<string, string, long[]> processor)
+
+        public static string Process(
+            string inStr, 
+            Func<string, string, long[]> processor,
+            string outDelim = Space)
         {
             var toks = inStr.Split(NewLineChars, StringSplitOptions.RemoveEmptyEntries);
-            return string.Join(" ", processor(toks[0], toks[1]));
+            return string.Join(outDelim, processor(toks[0], toks[1]));
         }
 
         public static string Process(string inStr, Func<long, string[], string[]> processor)
