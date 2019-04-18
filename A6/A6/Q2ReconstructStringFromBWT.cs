@@ -21,30 +21,33 @@ namespace A6
         {
             List<(char, int)> lastCol = new List<(char, int)>(); //original bwt transform with indexes
             List<(char, int)> firstCol = new List<(char, int)>(); //sorted bwt transform 
-            Dictionary<(char, int), (char, int)> mainData = new Dictionary<(char, int), (char, int)>();
+            Dictionary<(char, int), (char, int)> mainData = new Dictionary<(char, int), (char, int)>(); //نگاشت
+            int n = bwt.Length;
 
-            for (int i=0; i<bwt.Length; i++)
+            for (int i=0; i<n; i++)
+            {
                 lastCol.Add((bwt[i], i));
+                firstCol.Add((bwt[i], i));
+            }
 
-            firstCol = lastCol;
             firstCol.Sort();
+            
 
-            for (int i = 0; i < firstCol.Count(); i++)
+            for (int i = 0; i < n; i++)
                 mainData[firstCol[i]] = lastCol[i];
 
-            string reversedResult = string.Empty;
+            StringBuilder reversedResult = new StringBuilder();
 
             (char, int) current = firstCol[0]; //($, 0)
 
 
-            while (reversedResult.Length != bwt.Length)
+            for (int i=0; i<n; i++)
             {
-                reversedResult += current.Item1;
+                reversedResult.Append(current.Item1);
                 current = mainData[current];
             }
 
-            string res = reversedResult.ToCharArray().Reverse().ToString();
-            return res;
+            return new string(reversedResult.ToString().Reverse().ToArray());
         }
 
 
