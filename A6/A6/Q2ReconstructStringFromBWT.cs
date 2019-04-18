@@ -19,34 +19,32 @@ namespace A6
 
         public string Solve(string bwt)
         {
-            int a, c, g, t;
-            a = c = g = t = 0;
-
-            List<(char, int)> originalBWT = new List<(char, int)>();
-            List<(char, int)> sortedBWT = new List<(char, int)>();
+            List<(char, int)> lastCol = new List<(char, int)>(); //original bwt transform with indexes
+            List<(char, int)> firstCol = new List<(char, int)>(); //sorted bwt transform 
             Dictionary<(char, int), (char, int)> mainData = new Dictionary<(char, int), (char, int)>();
 
             for (int i=0; i<bwt.Length; i++)
-            {
-                char current = bwt[i];
-                if (current == 'A')
-                {
-                    originalBWT.Add(('A', a));
-                    a++;
-                }
-                else if (current == 'C')
-                {
-                    originalBWT.Add(('C', a));
-                    a++;
-                }
-                else
-                    originalBWT.Add(('$', 0));
-                
+                lastCol.Add((bwt[i], i));
 
+            firstCol = lastCol;
+            firstCol.Sort();
+
+            for (int i = 0; i < firstCol.Count(); i++)
+                mainData[firstCol[i]] = lastCol[i];
+
+            string reversedResult = string.Empty;
+
+            (char, int) current = firstCol[0]; //($, 0)
+
+
+            while (reversedResult.Length != bwt.Length)
+            {
+                reversedResult += current.Item1;
+                current = mainData[current];
             }
 
-
-            return null;
+            string res = reversedResult.ToCharArray().Reverse().ToString();
+            return res;
         }
 
 

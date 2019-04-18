@@ -11,7 +11,7 @@ namespace A6
     {
         public Q4ConstructSuffixArray(string testDataName) : base(testDataName)
         {
-            //ExcludeTestCaseRangeInclusive(48, 50);
+
         }
 
         public override string Process(string inStr) => 
