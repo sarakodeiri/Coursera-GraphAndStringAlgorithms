@@ -11,7 +11,7 @@ namespace A6
     {
         public Q2ReconstructStringFromBWT(string testDataName) : base(testDataName)
         {
-            //ExcludedTestCases(31, 40);
+            ExcludeTestCaseRangeInclusive(31, 40);
         }
 
         public override string Process(string inStr) =>
@@ -19,20 +19,36 @@ namespace A6
 
         public string Solve(string bwt)
         {
+            int a, c, g, t;
+            a = c = g = t = 0;
 
-            List<(char, int)> lastColumn = new List<(char, int)>();
-            List<(char, int)> firstColumn = new List<(char, int)>();
+            List<(char, int)> originalBWT = new List<(char, int)>();
+            List<(char, int)> sortedBWT = new List<(char, int)>();
+            Dictionary<(char, int), (char, int)> mainData = new Dictionary<(char, int), (char, int)>();
 
+            for (int i=0; i<bwt.Length; i++)
+            {
+                char current = bwt[i];
+                if (current == 'A')
+                {
+                    originalBWT.Add(('A', a));
+                    a++;
+                }
+                else if (current == 'C')
+                {
+                    originalBWT.Add(('C', a));
+                    a++;
+                }
+                else
+                    originalBWT.Add(('$', 0));
+                
 
-            
+            }
 
-
-            firstColumn = lastColumn;
-            firstColumn.Sort();
 
             return null;
-
         }
-        
+
+
     }
 }
