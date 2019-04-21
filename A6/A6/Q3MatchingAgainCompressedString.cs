@@ -94,7 +94,7 @@ namespace A6
                 if (pattern.Length != 0)
                 {
                     char symbol = pattern.Last();
-                    pattern.Remove(pattern.Length - 1, 1);
+                    pattern = pattern.Remove(pattern.Length - 1, 1);
                     top = starts[symbol] + count[symbol][top];
                     bottom = starts[symbol] + count[symbol][bottom] - 1;
                 }

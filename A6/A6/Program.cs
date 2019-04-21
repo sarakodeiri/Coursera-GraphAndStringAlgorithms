@@ -11,9 +11,9 @@ namespace A6
         static void Main(string[] args)
         {
             var obj = new Q3MatchingAgainCompressedString("TD3");
-            string test = "ACCAT$";
-            var blah = new string[2];
-            obj.Solve(test, 5, blah);
+            string test = "CG$TTGTC";
+            string[] blah = { "TTG", "GTG" };
+            obj.Solve(test, 2, blah);
 
         }
     }
