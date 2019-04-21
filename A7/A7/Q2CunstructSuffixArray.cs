@@ -106,7 +106,7 @@ namespace A7
             return newClass;
         }
 
-        private long[] Solve(string text)
+        public long[] Solve(string text)
         {
             char[] textArray = text.ToCharArray();
             long[] order = SortCharacters(textArray);

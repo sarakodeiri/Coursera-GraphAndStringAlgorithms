@@ -23,6 +23,7 @@ namespace A7
             long[] prefixFuncRes = ComputeprefixFunction(patternDollarText);
             List<long> result = new List<long>();
             int n = pattern.Length;
+
             for (int i = n; i < patternDollarText.Length; i++)
                 if (prefixFuncRes[i] == n)
                     result.Add(i - 2 * n);
