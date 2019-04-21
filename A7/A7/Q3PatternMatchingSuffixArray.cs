@@ -12,6 +12,7 @@ namespace A7
         public Q3PatternMatchingSuffixArray(string testDataName) : base(testDataName)
         {
             this.VerifyResultWithoutOrder = true;
+            ExcludeTestCaseRangeInclusive(3, 50);
         }
 
         public override string Process(string inStr) =>
@@ -19,6 +20,7 @@ namespace A7
 
         private long[] Solve(string text, long n, string[] patterns)
         {
+            text += "$";
             var obj = new Q2CunstructSuffixArray("TD2");
             var suffixArray = obj.Solve(text);
             List<long> result = new List<long>();
@@ -36,23 +38,18 @@ namespace A7
             return result.Count() == 0 ? none : result.ToArray();
         }
 
-        private long PatternMatching(string text, string pattern, long[] suffixArray)
+        private long[] PatternMatching(string text, string pattern, long[] suffixArray)
         {
             int minIndex = 0;
-            int maxIndex = text.Length - 1;
+            int maxIndex = text.Length;
             int midIndex;
             while (minIndex < maxIndex)
             {
                 midIndex = (minIndex + maxIndex) / 2;
-                
-                //suffix of text starting at position suffixArray(midIndex) = comparator
-                string comparator = text.Substring((int)suffixArray[midIndex], text.Length);
-                string[] set = { pattern, comparator };
-                Array.Sort(set);
-                bool paran = Array.IndexOf(set, comparator) < Array.IndexOf(set, pattern) ? true : false;
 
-                if (paran)
-                    minIndex++;
+                string suffix = text.Substring((int)suffixArray[midIndex], text.Length - (int)suffixArray[midIndex]);
+                if (pattern.CompareTo(suffix) > 0)
+                    minIndex = midIndex + 1;
                 else
                     maxIndex = midIndex;
 
@@ -61,22 +58,23 @@ namespace A7
             int start = minIndex;
             maxIndex = text.Length - 1;
 
-            while(minIndex < maxIndex)
+            while (minIndex < maxIndex)
             {
                 midIndex = (minIndex + maxIndex) / 2;
-                //suffix of text starting at position suffixArray(midIndex) = comparator
-                string comparator = text.Substring((int)suffixArray[midIndex], text.Length);
-                string[] set = { pattern, comparator };
-                Array.Sort(set);
-                bool paran = Array.IndexOf(set, comparator) > Array.IndexOf(set, pattern) ? true : false;
-                if (paran)
+                string suffix = text.Substring((int)suffixArray[midIndex], text.Length - (int)suffixArray[midIndex]);
+                if (pattern.CompareTo(suffix) < 0)
                     maxIndex = midIndex;
                 else
-                    minIndex++;
+                    minIndex = midIndex + 1;
             }
 
+            List<long> result = new List<long>();
             int end = maxIndex;
-            return start > end ? start : -1;
+            if (start <= end)
+                for (int i = start; i < end; i++)
+                    result.Add(suffixArray[i]);
+
+            return result.ToArray();
         }
 
     }

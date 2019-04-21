@@ -10,6 +10,9 @@ namespace A7
     {
         static void Main(string[] args)
         {
+            string text = "AAA";
+            var obj = new Q2CunstructSuffixArray("TD2");
+            long[] suffixArray = obj.Solve(text);
         }
     }
 }
