@@ -43,28 +43,23 @@ namespace A6
         {
             string firstCol = bwt;
             firstCol = new string(bwt.OrderBy(s => s).ToArray());
+            char[] allChars = { 'A', 'C', 'G', 'T', '$' };
 
-            starts['$'] = firstCol.IndexOf('$');
-            starts['A'] = firstCol.IndexOf('A');
-            starts['C'] = firstCol.IndexOf('C');
-            starts['G'] = firstCol.IndexOf('G');
-            starts['T'] = firstCol.IndexOf('T');
+            foreach (char ch in allChars)
+            {
+                starts[ch] = firstCol.IndexOf(ch);
+                count[ch] = new List<int>();
+            }
 
-            count['$'] = new List<int>();
-            count['A'] = new List<int>();
-            count['C'] = new List<int>();
-            count['G'] = new List<int>();
-            count['T'] = new List<int>();
-
-            int dol, a, c, g, t;
-            dol = a = c = g = t = 0;
+            int d, a, c, g, t;
+            d = a = c = g = t = 0;
 
             for (int i = 0; i < bwt.Length; i++)
             {
                 switch (bwt[i])
                 {
                     case '$':
-                        dol++;
+                        d++;
                         break;
                     case 'A':
                         a++;
@@ -79,7 +74,7 @@ namespace A6
                         t++;
                         break;
                 }
-                count['$'].Add(dol);
+                count['$'].Add(d);
                 count['A'].Add(a);
                 count['C'].Add(c);
                 count['G'].Add(g);
@@ -101,7 +96,7 @@ namespace A6
                     char symbol = pattern.Last();
                     pattern.Remove(pattern.Length - 1, 1);
                     top = starts[symbol] + count[symbol][top];
-                    bottom = starts[symbol] + count[symbol][bottom + 1] - 1;
+                    bottom = starts[symbol] + count[symbol][bottom] - 1;
                 }
 
                 else
