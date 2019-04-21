@@ -28,7 +28,7 @@ namespace A7.Tests
         [TestMethod(), Timeout(1000)]
         public void SolveTest_Q3()
         {
-            RunTest(new Q2CunstructSuffixArray("TD2"));
+            RunTest(new Q3PatternMatchingSuffixArray("TD3"));
         }
 
         private void RunTest(Processor p)
