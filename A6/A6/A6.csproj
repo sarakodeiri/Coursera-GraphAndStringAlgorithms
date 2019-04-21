@@ -49,6 +49,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Q1ConstructBWT.cs" />
+    <Compile Include="Q2ReconstructStringFromBWT.cs" />
     <Compile Include="Q3MatchingAgainCompressedString.cs" />
     <Compile Include="Q4ConstructSuffixArray.cs" />
   </ItemGroup>

@@ -30,15 +30,6 @@ namespace A6
 
         }
 
-        // Preprocess the Burrows-Wheeler Transform bwt of some text
-        // and compute as a result:
-        //   * starts - for each character C in bwt, starts[C] is the first position
-        //       of this character in the sorted array of
-        //       all characters of the text.
-        //   * occ_count_before - for each character C in bwt and each position P in bwt,
-        //       occ_count_before[C][P] is the number of occurrences of character C in bwt
-        //       from position 0 to position P inclusive.
-        //
         private void PreprocessBWT(string bwt, ref Dictionary<char, int> starts, ref Dictionary<char, List<int>> count)
         {
             string firstCol = bwt;
@@ -54,6 +45,11 @@ namespace A6
             int d, a, c, g, t;
             d = a = c = g = t = 0;
 
+            count['$'].Add(d);
+            count['A'].Add(a);
+            count['C'].Add(c);
+            count['G'].Add(g);
+            count['T'].Add(t);
             for (int i = 0; i < bwt.Length; i++)
             {
                 switch (bwt[i])
@@ -81,10 +77,7 @@ namespace A6
                 count['T'].Add(t);
             }
         }
-
-        // Compute the number of occurrences of string pattern in the text
-        // given only Burrows-Wheeler Transform bwt of the text and additional
-        // information we get from the preprocessing stage - starts and occ_counts_before.
+        
         private long CountOccurrences(string pattern, string bwt, Dictionary<char, int> starts, Dictionary<char, List<int>> count)
         {
             int top = 0;
@@ -96,7 +89,7 @@ namespace A6
                     char symbol = pattern.Last();
                     pattern = pattern.Remove(pattern.Length - 1, 1);
                     top = starts[symbol] + count[symbol][top];
-                    bottom = starts[symbol] + count[symbol][bottom] - 1;
+                    bottom = starts[symbol] + count[symbol][bottom + 1] - 1;
                 }
 
                 else
