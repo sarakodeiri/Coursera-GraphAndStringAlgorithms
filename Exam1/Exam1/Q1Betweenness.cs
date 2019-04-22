@@ -87,6 +87,8 @@ namespace Exam1
                 visited[i] = false;
             var adjacencyList = graph.adjacencyList;
 
+            //adjacencyList = adjacencyList.OrderByDescending(x => x).ToArray();
+
             int dist = 0;
 
             distance[StartNode] = 0;
@@ -97,8 +99,6 @@ namespace Exam1
             while (queue.Count() > 0)
             {
                 dist++;
-                //queue.Sort();
-                //queue.Reverse();
                 long temp = queue.First();
                 queue.RemoveAt(0);
                 for (long i = 0; i < adjacencyList[temp].Count(); i++)
@@ -110,6 +110,8 @@ namespace Exam1
                         visited[current] = true;
                         distance[current] = distance[preDec[current]] + 1;
                         queue.Add(current);
+                        //queue.Sort();
+                        //queue.Reverse();
                     }
                 }
             }
