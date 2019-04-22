@@ -9,7 +9,7 @@ namespace Exam1
     {
         public Q2Cryptanalyst(string testDataName) : base(testDataName)
         {
-            
+            ExcludeTestCaseRangeInclusive(21, 37);
         }
 
         public override string Process(string inStr) => Solve(inStr);
@@ -18,21 +18,29 @@ namespace Exam1
 
         public string Solve(string cipher)
         {
-            string[] words = File.ReadAllLines(@"C:\Users\Sara\Documents\Term4\AlgorithmDesign\AD97982\Exam1\Exam1Tests\TestData\TD2\dictionary.txt");
-
-            Dictionary<string, long> values = new Dictionary<string, long>();
+            string[] dictionaryWords = File.ReadAllLines(@"Exam1_TestData\TD2\dictionary.txt");
 
             var obj = new PatternMatchingSuffixArray();
+            string passKey = string.Empty;
 
-            for (int i=0; i<10; i++)
+            for (int i=0; i<100; i++)
             {
                 var encryption = new Encryption($"{i}", ' ', 'z', false);
                 string decrypted = encryption.Decrypt(cipher);
-                long count = obj.Solve(decrypted, words.Length, words);
-                values.Add($"{i}", count);
+                string[] words = decrypted.Split(' ');
+                int count = 0;
+                for (int j = 0; j < words.Length; j++)
+                {
+                    if (dictionaryWords.Contains(words[j]))
+                        count++;
+                    if (count == 10)
+                    {
+                        passKey = $"{i}";
+                        break;
+                    }
+                }
             }
 
-            var passKey = values.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
 
             var finalEnc = new Encryption(passKey, ' ', 'z', false);
 

@@ -12,6 +12,8 @@ namespace Exam1
         public Q1Betweenness(string testDataName) : base(testDataName)
         {
             this.ExcludeTestCaseRangeInclusive(15, 50);
+            this.ExcludeTestCaseRangeInclusive(6, 10);
+            this.ExcludeTestCaseRangeInclusive(4, 4);
         }
 
         public override string Process(string inStr) =>
@@ -48,10 +50,7 @@ namespace Exam1
 
             for (int i = 0; i < result.Length; i++)
                 result[i] = path.Where(s => s == i).Count();
-
-
-
-
+            
             return result;
         }
 
@@ -65,7 +64,6 @@ namespace Exam1
                 temp = preDec[temp];
             }
             path.Reverse();
-           // path.RemoveAt(0);
             path.RemoveAt(path.Count() - 1);
 
             return path;
@@ -75,13 +73,14 @@ namespace Exam1
         private void ComputeShortestPath(Graph graph, long[] distance, long[] preDec, long StartNode, long NodeCount)
         {
             //compute the length of a shortest path from startNode
+
             for (int i = 0; i < NodeCount; i++)
                 distance[i] = int.MaxValue;
 
             for (int i = 0; i < NodeCount; i++)
                 preDec[i] = int.MaxValue;
 
-            Queue<long> queue = new Queue<long>();
+            List<long> queue = new List<long>();
 
             bool [] visited = new bool[NodeCount];
             for (int i = 0; i < visited.Length; i++)
@@ -92,12 +91,16 @@ namespace Exam1
 
             distance[StartNode] = 0;
             visited[StartNode] = true;
-            queue.Enqueue(StartNode);
+
+            queue.Add(StartNode);
 
             while (queue.Count() > 0)
             {
                 dist++;
-                long temp = queue.Dequeue();
+                //queue.Sort();
+                //queue.Reverse();
+                long temp = queue.First();
+                queue.RemoveAt(0);
                 for (long i = 0; i < adjacencyList[temp].Count(); i++)
                 {
                     var current = adjacencyList[temp][(int)i];
@@ -106,7 +109,7 @@ namespace Exam1
                         preDec[current] = temp;
                         visited[current] = true;
                         distance[current] = distance[preDec[current]] + 1;
-                        queue.Enqueue(current);
+                        queue.Add(current);
                     }
                 }
             }
