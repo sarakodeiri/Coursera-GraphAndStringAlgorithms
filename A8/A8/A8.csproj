@@ -48,6 +48,7 @@
     <Compile Include="Q1Evaquating.cs" />
     <Compile Include="Q2Airlines.cs" />
     <Compile Include="Q3Stocks.cs" />
+    <Compile Include="Residual.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

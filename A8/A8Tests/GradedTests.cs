@@ -16,7 +16,7 @@ namespace A8.Tests
         [TestMethod(), Timeout(2000)]
         public void SolveTest_Q1Evaquating()
         {
-            Assert.Inconclusive("A8.Q1 Not Solved");
+            //Assert.Inconclusive("A8.Q1 Not Solved");
             RunTest(new Q1Evaquating("TD1"));
         }
 

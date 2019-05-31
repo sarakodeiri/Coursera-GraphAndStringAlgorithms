@@ -11,7 +11,7 @@ namespace A8
     {
         public Q1Evaquating(string testDataName) : base(testDataName)
         {
-            //this.ExcludeTestCaseRangeInclusive(1, 1);
+            this.ExcludeTestCaseRangeInclusive(1, 2);
             //this.ExcludeTestCaseRangeInclusive(11, 100);
         }
 
@@ -20,7 +20,10 @@ namespace A8
 
         public virtual long Solve(long nodeCount, long edgeCount, long[][] edges)
         {
-            return 0;
+            Residual residual = new Residual(nodeCount, edges);
+            return edges.Length != 0 ? residual.ComputeMaxFlow() : 0;
         }
+
+        
     }
 }
