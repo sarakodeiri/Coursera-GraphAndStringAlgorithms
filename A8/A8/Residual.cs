@@ -22,14 +22,12 @@ namespace A8
             this.nodeCount = nodeCount;
             this.edges = edges;
 
-            adjacencyList = new long[nodeCount, nodeCount];
+            this.adjacencyList = new long[(int)nodeCount, (int)nodeCount];
             
-            for (int i = 0; i < edges.Length; i++)
+            for (int i = 0; i < edges.GetLength(0); i++)
                 adjacencyList[edges[i][0] - 1, edges[i][1] - 1] += edges[i][2];
 
             visited = new bool[nodeCount];
-            for (int i = 0; i < visited.Length; i++)
-                visited[i] = false;
 
             parent = new long[nodeCount];
             for (int i = 0; i < parent.Length; i++)
@@ -38,6 +36,7 @@ namespace A8
             maxFlow = 0;
             source = 0;
             sink = nodeCount - 1;
+
         }
 
         public long ComputeMaxFlow()
@@ -64,6 +63,8 @@ namespace A8
 
         private bool PathExists()
         {
+            bool[] visited = new bool[nodeCount];
+
             Queue<long> queue = new Queue<long>();
             queue.Enqueue(source);
             visited[source] = true;
@@ -73,7 +74,7 @@ namespace A8
                 if (current == sink)
                     return true;
 
-                for (int i = 0; i < adjacencyList.Length; i++)
+                for (int i = 0; i < adjacencyList.GetLength(1); i++)
                     if (adjacencyList[current, i] > 0 && !visited[i])
                     {
                         parent[i] = current;
@@ -81,7 +82,8 @@ namespace A8
                         visited[i] = true;
                     }
             }
-            return false;
+
+            return visited[sink];
         }
     }
 
