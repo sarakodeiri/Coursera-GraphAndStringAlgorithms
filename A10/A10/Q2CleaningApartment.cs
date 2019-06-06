@@ -52,7 +52,7 @@ namespace A3
                     }
             }
 
-            for (int k = 0; k<V; k++)
+            for (int k = 1; k<V; k++)
                 for (int i=1; i<=V; i++)
                     for (int j=1; j<=V; j++)
                     {
