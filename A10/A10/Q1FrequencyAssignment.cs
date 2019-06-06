@@ -19,15 +19,16 @@ namespace A3
             int variableCount = 3 * V;
             int clauseCount = 4 * V + 3 * E;
 
-            List<string> result = new List<string>();
-
-            result.Add($"{variableCount} {clauseCount}");
+            List<string> result = new List<string>
+            {
+                $"{variableCount} {clauseCount}"
+            };
 
             for (int i=1; i<=V; i++)
             {
-                string[] atLeastOneColor = new string[3];
+                int[] atLeastOneColor = new int[3];
                 for (int j = 0; j < atLeastOneColor.Length; j++)
-                    atLeastOneColor[j] = VarNum(i, j).ToString();
+                    atLeastOneColor[j] = VarNum(i, j);
                 result.Add($"{atLeastOneColor[0]} {atLeastOneColor[1]} {atLeastOneColor[2]}");
 
                 for (int k = 0; k < atLeastOneColor.Length - 1; k++)
