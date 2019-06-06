@@ -19,6 +19,7 @@ namespace A9
 
             double val = 0;
             double[] result = new double[MATRIX_SIZE];
+
             for (int i = rowCount - 1; i >= 0; i--)
             {
                 val = matrix[i, columnCount - 1];
@@ -29,6 +30,11 @@ namespace A9
                 result[i] = val / matrix[i, i];
 
             }
+
+          //Proximity handler
+            for (int i = 0; i < result.Length; i++)
+                    result[i] = Math.Round(result[i] * 2) / 2;
+
             return result;
         }
 
