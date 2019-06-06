@@ -21,6 +21,8 @@ namespace A3
 
             List<string> result = new List<string>();
 
+            result.Add($"{variableCount} {clauseCount}");
+
             for (int i=1; i<=V; i++)
             {
                 string[] atLeastOneColor = new string[3];
