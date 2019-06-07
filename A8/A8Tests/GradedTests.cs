@@ -23,7 +23,7 @@ namespace A8.Tests
         [TestMethod(), Timeout(2000)]
         public void SolveTest_Q2Airlines()
         {
-            Assert.Inconclusive("A8.Q2 Not Solved");
+            //Assert.Inconclusive("A8.Q2 Not Solved");
             RunTest(new Q2Airlines("TD2"));
         }
 

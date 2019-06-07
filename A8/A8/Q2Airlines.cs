@@ -18,7 +18,24 @@ namespace A8
 
         public virtual long[] Solve(long flightCount, long crewCount, long[][] info)
         {
-            return new long[] { 0 }; 
+            //Construct G'
+            //Compute maxFlow
+            //Find matching M : return M
+
+            Residual gPrime = new Residual(flightCount, crewCount, info);
+            
+            long[] result = new long[flightCount];
+            for (int i = 0; i < result.Length; i++)
+                result[i] = -1;
+
+            gPrime.ComputeMaxFlow();
+
+            for (int i = (int)flightCount + 1; i < gPrime.nodeCount; i++)
+                for (int j = 0; j < flightCount; j++)
+                    if (gPrime.adjacencyList[i, j + 1] == 1)
+                        result[j] = i - flightCount;
+
+            return result;
         }
 
   }

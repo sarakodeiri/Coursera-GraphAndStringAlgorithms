@@ -11,8 +11,6 @@ namespace A8
     {
         public Q1Evaquating(string testDataName) : base(testDataName)
         {
-            //this.ExcludeTestCaseRangeInclusive(1, 2);
-            //this.ExcludeTestCaseRangeInclusive(50, 100);
         }
 
         public override string Process(string inStr) =>
