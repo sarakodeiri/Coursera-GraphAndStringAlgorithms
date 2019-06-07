@@ -24,10 +24,10 @@ namespace A9.Tests
         public void SolveTest_Q2OptimalDiet()
         {
             //Assert.Inconclusive("A9.Q2 Not Solved");
-            RunTest(new Q3OnlineAdAllocation("TD2"));
+            RunTest(new Q2OptimalDiet("TD2"));
         }
 
-        [TestMethod(), Timeout(2000)]
+        [TestMethod()/*, Timeout(2000)*/]
         public void SolveTest_Q3OnlineAdAllocation()
         {
             Assert.Inconclusive("A9.Q3 Not Solved");
