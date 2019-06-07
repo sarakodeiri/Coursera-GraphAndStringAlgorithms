@@ -19,7 +19,7 @@ namespace A9
 
         public string Solve(int c, int v, double[,] matrix1)
         {
-            return null;
+            return "blah";
         }
 
     }
