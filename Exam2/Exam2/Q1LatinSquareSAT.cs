@@ -24,15 +24,15 @@ namespace Exam2
             //int clauseCount = ((dim * (dim - 1) / 2) + 1) * ((dim * dim * 2) + 1); //NOT CORRECT
 
             List<string> result = new List<string>();
-           
+
             //Each space should have at least and at most one number in it
-            for (int i=0; i<dim; i++)
+            for (int i = 0; i < dim; i++)
             {
                 for (int j = 0; j < dim; j++)
                 {
                     int[] atLeastOneNum = new int[dim];
                     for (int k = 0; k < dim; k++)
-                        atLeastOneNum[k] = VarNum(i, j, k);
+                        atLeastOneNum[k] = VarNum(i, j, k, dim);
                     result.Add(string.Join(" ", atLeastOneNum));
 
                     for (int k = 0; k < atLeastOneNum.Length - 1; k++)
@@ -49,18 +49,18 @@ namespace Exam2
                     {
                         int? num = square[i, j].Value;
 
-                        result.Add($"{VarNum(i, j, num.Value)}");
+                        result.Add($"{VarNum(i, j, num.Value, dim)}");
 
                         for (int row = 0; row < dim; row++)
                         {
                             if (row != j)
-                                result.Add($"-{VarNum(i, row, num.Value)}");
+                                result.Add($"-{VarNum(i, row, num.Value, dim)}");
                         }
 
                         for (int col = 0; col < dim; col++)
                         {
                             if (col != i)
-                                result.Add($"-{VarNum(col, j, num.Value)}");
+                                result.Add($"-{VarNum(col, j, num.Value, dim)}");
                         }
                     }
                 }
@@ -71,6 +71,6 @@ namespace Exam2
             return string.Join("\n", result);
         }
 
-        private static int VarNum(int i, int j, int k) => i*9 + j*3 + k + 1;
+        private static int VarNum(int i, int j, int k, int dim) => i*dim*dim + j*dim + k + 1;
     }
 }
