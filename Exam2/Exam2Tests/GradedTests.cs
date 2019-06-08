@@ -13,7 +13,7 @@ namespace Exam2.Tests
             RunTest(new Q1LatinSquareSAT("TD1"));
         }
 
-        [TestMethod(), Timeout(1000)]
+        [TestMethod()/*, Timeout(1000)*/]
         public void SolveTest_Q2LatinSquareBT()
         {
             RunTest(new Q2LatinSquareBT("TD1"));

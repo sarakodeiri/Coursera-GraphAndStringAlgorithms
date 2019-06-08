@@ -20,8 +20,6 @@ namespace Exam2
 
         public string Solve(int dim, int?[,] square)
         {
-            int variableCount = dim * dim * dim;
-            //int clauseCount = ((dim * (dim - 1) / 2) + 1) * ((dim * dim * 2) + 1); //NOT CORRECT
 
             List<string> result = new List<string>();
 
@@ -63,23 +61,6 @@ namespace Exam2
                         }
                 }
 
-            ////Check each column
-            //for (int i = 0; i < dim; i++)
-            //    for (int k = 0; k < dim; k++)
-            //    {
-            //        int[] checker = new int[dim];
-            //        for (int j = 0; j < dim; j++)
-            //            checker[j] = VarNum(j, i, k, dim);
-
-            //        result.Add(string.Join(" ", checker));
-
-            //        for (int x = 0; x < checker.Length - 1; x++)
-            //            for (int b = x + 1; b < checker.Length; b++)
-            //    }
-
-
-
-
             //Check with already filled spots
             for (int i = 0; i < dim; i++)
                 for (int j = 0; j < dim; j++)
@@ -99,6 +80,7 @@ namespace Exam2
                         
                     }
 
+            int variableCount = dim * dim * dim;
             int clauseCount = result.Count() - 1;
             result.Insert(0, $"{variableCount} {clauseCount}");
 
