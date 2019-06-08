@@ -7,7 +7,7 @@ namespace Exam2.Tests
     [TestClass()]
     public class GradedTests
     {
-        [TestMethod()/*, Timeout(20000)*/]
+        [TestMethod(), Timeout(20000)]
         public void SolveTest_Q1LatinSquareSAT()
         {
             RunTest(new Q1LatinSquareSAT("TD1"));

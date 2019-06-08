@@ -27,7 +27,6 @@ namespace Exam2
 
             //Each space should have at least and at most one number in it
             for (int i = 0; i < dim; i++)
-            {
                 for (int j = 0; j < dim; j++)
                 {
                     int[] atLeastOneNum = new int[dim];
@@ -39,12 +38,51 @@ namespace Exam2
                         for (int b = k + 1; b < atLeastOneNum.Length; b++)
                             result.Add($"-{atLeastOneNum[k]} -{atLeastOneNum[b]}");
                 }
-            }
 
-            for (int i = 0; i < dim; i++)
-            {
-                for (int j = 0; j < dim; j++)
+            //Check each row
+            for (int i=0; i<dim; i++)
+                for (int k = 0; k < dim; k++)
                 {
+                    int[] rowChecker = new int[dim];
+                    int[] columnChecker = new int[dim];
+
+                    for (int j = 0; j < dim; j++)
+                    {
+                        columnChecker[j] = VarNum(j, i, k, dim);
+                        rowChecker[j] = VarNum(i, j, k, dim);
+                    }
+
+                    result.Add(string.Join(" ", rowChecker));
+                    result.Add(string.Join(" ", columnChecker));
+
+                    for (int x = 0; x < rowChecker.Length - 1; x++)
+                        for (int b = x + 1; b < rowChecker.Length; b++)
+                        {
+                            result.Add($"-{rowChecker[x]} -{rowChecker[b]}");
+                            result.Add($"-{columnChecker[x]} -{columnChecker[b]}");
+                        }
+                }
+
+            ////Check each column
+            //for (int i = 0; i < dim; i++)
+            //    for (int k = 0; k < dim; k++)
+            //    {
+            //        int[] checker = new int[dim];
+            //        for (int j = 0; j < dim; j++)
+            //            checker[j] = VarNum(j, i, k, dim);
+
+            //        result.Add(string.Join(" ", checker));
+
+            //        for (int x = 0; x < checker.Length - 1; x++)
+            //            for (int b = x + 1; b < checker.Length; b++)
+            //    }
+
+
+
+
+            //Check with already filled spots
+            for (int i = 0; i < dim; i++)
+                for (int j = 0; j < dim; j++)
                     if (square[i, j].HasValue)
                     {
                         int? num = square[i, j].Value;
@@ -52,22 +90,18 @@ namespace Exam2
                         result.Add($"{VarNum(i, j, num.Value, dim)}");
 
                         for (int row = 0; row < dim; row++)
-                        {
                             if (row != j)
                                 result.Add($"-{VarNum(i, row, num.Value, dim)}");
-                        }
 
                         for (int col = 0; col < dim; col++)
-                        {
                             if (col != i)
                                 result.Add($"-{VarNum(col, j, num.Value, dim)}");
-                        }
+                        
                     }
-                }
-            }
 
             int clauseCount = result.Count() - 1;
             result.Insert(0, $"{variableCount} {clauseCount}");
+
             return string.Join("\n", result);
         }
 
