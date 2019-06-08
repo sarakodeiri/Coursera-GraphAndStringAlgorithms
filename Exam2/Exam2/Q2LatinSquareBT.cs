@@ -18,41 +18,19 @@ namespace Exam2
 
         public string Solve(int dim, int?[,] square)
         {
-            List <(int, int) > modified = new List<(int, int)>();
-
             for (int i=0; i<dim; i++)
                 for (int j=0; j<dim; j++)
                 {
                     if (!square[i, j].HasValue)
                     {
-                        modified.Add((i, j));
-
-                        int?[] column = new int?[dim];
-                        int?[] row = new int?[dim];
-                        for (int b = 0; b < dim; b++)
+                        for (int k = 0; k < dim; k++)
                         {
-                            row[b] = square[i, b];
-                            column[b] = square[b, j];
+                            square[i, j] = k;
+                            Solve(dim, square);
                         }
 
-                        for (int k = 0; k < dim;)
-                        {
-                            if (row.Contains(k) || column.Contains(k))
-                            {
-                                if (k == dim - 1)
-                                    return "UNSATISFIABLE";
-                                k++;
-                            }
-
-                            else
-                            {
-                                square[i, j] = k;
-                                break;
-                            }
-
-                        }
                     }
-                        
+
                 }
             return "SATISFIABLE";
         }
