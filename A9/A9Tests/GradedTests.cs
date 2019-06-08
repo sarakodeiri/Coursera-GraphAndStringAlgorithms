@@ -23,7 +23,7 @@ namespace A9.Tests
         [TestMethod()/*, Timeout(2000)*/]
         public void SolveTest_Q2OptimalDiet()
         {
-            //Assert.Inconclusive("A9.Q2 Not Solved");
+            Assert.Inconclusive("A9.Q2 Not Solved");
             RunTest(new Q2OptimalDiet("TD2"));
         }
 
